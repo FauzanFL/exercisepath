@@ -1,9 +1,32 @@
 'use client';
 
-const Sidebar = ({ search }) => {
+import { useState } from 'react';
+
+const Sidebar = ({ search, muscle, type, difficulty, set }) => {
+  const [name, setName] = useState('');
+  const handleSearch = (event) => {
+    event.preventDefault();
+    search(name);
+  };
+
+  const handleMuscle = (event) => {
+    const value = event.target.value;
+    muscle(value);
+  };
+
+  const handleType = (event) => {
+    const value = event.target.value;
+    type(value);
+  };
+
+  const handleDifficulty = (event) => {
+    const value = event.target.value;
+    difficulty(value);
+  };
+
   return (
-    <aside className="sticky top-16 left-0 z-40 bg-white shadow-inner p-4">
-      <form onSubmit={search} className="flex items-center">
+    <aside className="md:sticky top-16 left-0 md:z-40 bg-white shadow-inner p-4">
+      <form onSubmit={handleSearch} className="flex items-center">
         <label htmlFor="simple-search" className="sr-only">
           Search
         </label>
@@ -27,7 +50,8 @@ const Sidebar = ({ search }) => {
           </div>
           <input
             type="text"
-            id="simple-search"
+            name="search"
+            onChange={({ target }) => setName(target.value)}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
             placeholder="Search name..."
             required
@@ -58,19 +82,49 @@ const Sidebar = ({ search }) => {
       <div className="mt-4">
         <h4 className="text-md font-bold mb-1">Difficulty</h4>
         <div className="flex items-center">
-          <input type="radio" value={'beginner'} name="difficulty" id="" />
+          <input
+            type="radio"
+            onChange={handleDifficulty}
+            value={''}
+            name="difficulty"
+            id=""
+          />
+          <label className="ml-2" htmlFor="difficulty">
+            All
+          </label>
+        </div>
+        <div className="flex items-center">
+          <input
+            type="radio"
+            onChange={handleDifficulty}
+            value={'beginner'}
+            name="difficulty"
+            id=""
+          />
           <label className="ml-2" htmlFor="difficulty">
             Beginner
           </label>
         </div>
         <div className="flex items-center">
-          <input type="radio" value={'intermediate'} name="difficulty" id="" />
+          <input
+            type="radio"
+            onChange={handleDifficulty}
+            value={'intermediate'}
+            name="difficulty"
+            id=""
+          />
           <label className="ml-2" htmlFor="difficulty">
             Intermediate
           </label>
         </div>
         <div className="flex items-center">
-          <input type="radio" value={'expert'} name="difficulty" id="" />
+          <input
+            type="radio"
+            onChange={handleDifficulty}
+            value={'expert'}
+            name="difficulty"
+            id=""
+          />
           <label className="ml-2" htmlFor="difficulty">
             Expert
           </label>
@@ -81,6 +135,7 @@ const Sidebar = ({ search }) => {
         <select
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           name="type"
+          onChange={handleType}
           id="type"
           defaultValue={''}
         >
@@ -97,7 +152,8 @@ const Sidebar = ({ search }) => {
         <h4 className="text-md font-bold mb-1">Muscle</h4>
         <select
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          name="type"
+          name="muscle"
+          onChange={handleMuscle}
           id="type"
           defaultValue={''}
         >
@@ -119,6 +175,14 @@ const Sidebar = ({ search }) => {
           <option value="traps">Traps</option>
           <option value="triceps">Triceps</option>
         </select>
+      </div>
+      <div className="flex justify-center items-center">
+        <button
+          onClick={set}
+          className="p-2.5 w-1/2 mt-4 ms-2 text-sm font-medium text-white bg-orange-700 rounded-lg border border-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
+        >
+          Set
+        </button>
       </div>
     </aside>
   );
