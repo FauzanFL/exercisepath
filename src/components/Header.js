@@ -4,9 +4,9 @@ const { default: Link } = require('next/link');
 
 const Header = ({ page }) => {
   return (
-    <header className="sticky bg-white flex items-center z-40 shadow-md top-0 px-4 py-2 h-16">
+    <header className="sticky bg-white dark:bg-slate-800 flex items-center z-40 shadow-md top-0 px-4 py-2 h-16">
       <h1 className="text-2xl mr-4 font-bold">
-        <Link className="hover:text-orange-500" href={'#'}>
+        <Link className="hover:text-orange-500 dark:text-white" href={'#'}>
           ExercisePath
         </Link>
       </h1>
@@ -19,7 +19,7 @@ const Header = ({ page }) => {
                 : 'mx-2 md:mx-4 text-md'
             }
           >
-            <Link className="hover:text-orange-500" href={'/'}>
+            <Link className="hover:text-orange-500 dark:text-white" href={'/'}>
               Home
             </Link>
           </li>
@@ -30,7 +30,10 @@ const Header = ({ page }) => {
                 : 'mx-2 md:mx-4 text-md'
             }
           >
-            <Link className="hover:text-orange-500" href={'/exercise'}>
+            <Link
+              className="hover:text-orange-500 dark:text-white"
+              href={'/exercise'}
+            >
               Exercise
             </Link>
           </li>

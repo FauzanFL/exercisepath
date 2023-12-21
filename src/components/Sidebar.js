@@ -25,7 +25,7 @@ const Sidebar = ({ search, muscle, type, difficulty, set }) => {
   };
 
   return (
-    <aside className="md:sticky top-16 left-0 md:z-40 bg-white shadow-inner p-4">
+    <aside className="md:sticky top-16 left-0 md:z-40 bg-white dark:bg-slate-700 shadow-inner p-4">
       <form onSubmit={handleSearch} className="flex items-center">
         <label htmlFor="simple-search" className="sr-only">
           Search

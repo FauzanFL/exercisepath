@@ -86,7 +86,7 @@ const ViewExercisePage = () => {
 
   return (
     <>
-      <main>
+      <main className="dark:bg-slate-700">
         <div className="block md:flex">
           <div className="inline-block w-full md:block md:w-1/4">
             <Sidebar
