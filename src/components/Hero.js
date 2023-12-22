@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <div className="relative flex justify-center items-center mb-8 w-full h-52 md:h-96">
       <div className="w-full md:w-1/2">
-        <p className="relative z-10 md:text-2xl font-bold text-white text-center">
+        <p className="relative z-10 md:text-2xl font-bold text-white text-center animate__animated animate__rubberBand">
           Start by setting your fitness goals. What do you want to achieve? Do
           you want to lose weight, build muscle, or improve your cardiovascular
           fitness?
@@ -15,7 +15,7 @@ const Hero = () => {
         <div className="relative z-10 flex justify-center items-center">
           <Button
             className={
-              'bg-orange-400 font-bold p-2 mt-3 rounded-full border hover:bg-orange-300'
+              'bg-orange-400 font-bold p-2 mt-3 rounded-full border hover:bg-orange-300 animate__animated animate__rubberBand'
             }
             href={'/exercise'}
             content={'Get Started'}

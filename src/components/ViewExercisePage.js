@@ -1,19 +1,21 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Button from './Button';
 import ExerciseList from './ExerciseList';
 import Sidebar from './Sidebar';
+import Loading from './Loading';
 
 const ViewExercisePage = () => {
   const [exercises, setExercises] = useState([]);
   const [muscle, setMuscle] = useState('');
   const [type, setType] = useState('');
   const [difficulty, setDifficulty] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchExercises() {
       try {
+        setIsLoading(true);
         const headers = new Headers();
         headers.append('X-Api-Key', process.env.NEXT_PUBLIC_API_KEY);
         const response = await fetch(
@@ -25,7 +27,9 @@ const ViewExercisePage = () => {
         );
         const data = await response.json();
         setExercises(data);
+        setIsLoading(false);
       } catch (e) {
+        setIsLoading(false);
         console.log(e);
       }
     }
@@ -50,6 +54,7 @@ const ViewExercisePage = () => {
     setMuscle('');
     setDifficulty('');
     try {
+      setIsLoading(true);
       const headers = new Headers();
       headers.append('X-Api-Key', process.env.NEXT_PUBLIC_API_KEY);
       const response = await fetch(
@@ -61,13 +66,16 @@ const ViewExercisePage = () => {
       );
       const data = await response.json();
       setExercises(data);
+      setIsLoading(false);
     } catch (e) {
+      setIsLoading(false);
       console.log(e);
     }
   };
 
   const set = async () => {
     try {
+      setIsLoading(true);
       const headers = new Headers();
       headers.append('X-Api-Key', process.env.NEXT_PUBLIC_API_KEY);
       const response = await fetch(
@@ -79,7 +87,9 @@ const ViewExercisePage = () => {
       );
       const data = await response.json();
       setExercises(data);
+      setIsLoading(false);
     } catch (e) {
+      setIsLoading(false);
       console.log(e);
     }
   };
@@ -97,22 +107,28 @@ const ViewExercisePage = () => {
               set={set}
             />
           </div>
-          <div className="w-full">
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-              {exercises.map((exercise, i) => {
-                return (
-                  <ExerciseList
-                    key={i}
-                    name={exercise.name}
-                    type={exercise.type}
-                    muscle={exercise.muscle}
-                    equipment={exercise.equipment}
-                    difficulty={exercise.difficulty}
-                    instructions={exercise.instructions}
-                  />
-                );
-              })}
-            </div>
+          <div className="w-full p-5">
+            {isLoading ? (
+              <div className="flex justify-center items-center h-64">
+                <Loading />
+              </div>
+            ) : (
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {exercises.map((exercise, i) => {
+                  return (
+                    <ExerciseList
+                      key={i}
+                      name={exercise.name}
+                      type={exercise.type}
+                      muscle={exercise.muscle}
+                      equipment={exercise.equipment}
+                      difficulty={exercise.difficulty}
+                      instructions={exercise.instructions}
+                    />
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </main>
