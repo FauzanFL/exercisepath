@@ -43,7 +43,7 @@ const ViewExercisePage = () => {
           <Sidebar />
         </div>
         <div className="w-full">
-          <div className="w-full grid grid-cols-3 gap-2">
+          <div className="w-full grid grid-cols-3 gap-4">
             {exercises.map((exercise, i) => {
               return (
                 <ExerciseList
@@ -62,7 +62,7 @@ const ViewExercisePage = () => {
             <Button
               click={handleLoadMore}
               className={
-                'bg-slate-600 hover:bg-slate-500 font-bold rounded-full shadow-sm border'
+                'bg-slate-600 hover:bg-slate-500 pt-2 px-4 pb-2 font-bold rounded-lg shadow-sm border'
               }
               content={'Load More'}
             />
