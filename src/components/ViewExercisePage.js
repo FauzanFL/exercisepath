@@ -7,69 +7,122 @@ import Sidebar from './Sidebar';
 
 const ViewExercisePage = () => {
   const [exercises, setExercises] = useState([]);
-  const [offset, setOffset] = useState(0);
+  const [muscle, setMuscle] = useState('');
+  const [type, setType] = useState('');
+  const [difficulty, setDifficulty] = useState('');
 
   useEffect(() => {
     async function fetchExercises() {
-      const headers = new Headers();
-      headers.append('X-Api-Key', process.env.NEXT_PUBLIC_API_KEY);
       try {
+        const headers = new Headers();
+        headers.append('X-Api-Key', process.env.NEXT_PUBLIC_API_KEY);
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/exercises?offset=${offset}`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/exercises`,
           {
             method: 'GET',
             headers,
           }
         );
         const data = await response.json();
-        console.log(process.env.API_KEY);
-        console.log(data);
-        setExercises((prevExercises) => [...prevExercises, ...data]);
+        setExercises(data);
       } catch (e) {
         console.log(e);
       }
     }
 
     fetchExercises();
-  }, [offset]);
+  }, []);
 
-  function handleLoadMore() {
-    setOffset((prevOffset) => prevOffset + 50);
-  }
+  const handleType = (type) => {
+    setType(type);
+  };
+
+  const handleDifficulty = async (diff) => {
+    setDifficulty(diff);
+  };
+
+  const handleMuscle = async (muscle) => {
+    setMuscle(muscle);
+  };
+
+  const search = async (keyword) => {
+    setType('');
+    setMuscle('');
+    setDifficulty('');
+    try {
+      const headers = new Headers();
+      headers.append('X-Api-Key', process.env.NEXT_PUBLIC_API_KEY);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/exercises?name=${keyword}`,
+        {
+          method: 'GET',
+          headers,
+        }
+      );
+      const data = await response.json();
+      setExercises(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const set = async () => {
+    try {
+      const headers = new Headers();
+      headers.append('X-Api-Key', process.env.NEXT_PUBLIC_API_KEY);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/exercises?difficulty=${difficulty}&type=${type}&muscle=${muscle}`,
+        {
+          method: 'GET',
+          headers,
+        }
+      );
+      const data = await response.json();
+      setExercises(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
-    <main>
-      <div className="flex">
-        <div className="w-1/4">
-          <Sidebar />
-        </div>
-        <div className="w-full">
-          <div className="w-full grid grid-cols-3 gap-4">
-            {exercises.map((exercise, i) => {
-              return (
-                <ExerciseList
-                  key={i}
-                  name={exercise.name}
-                  type={exercise.type}
-                  muscle={exercise.muscle}
-                  equipment={exercise.equipment}
-                  difficulty={exercise.difficulty}
-                  instructions={exercise.instructions}
-                />
-              );
-            })}
-          </div>
-          <div className="flex justify-center items-center">
-            <Button
-              click={handleLoadMore}
-              className={
-                'bg-slate-600 hover:bg-slate-500 pt-2 px-4 pb-2 font-bold rounded-lg shadow-sm border'
-              }
-              content={'Load More'}
+    <>
+      <main className="dark:bg-slate-700">
+        <div className="block md:flex">
+          <div className="inline-block w-full md:block md:w-1/4">
+            <Sidebar
+              search={search}
+              type={handleType}
+              muscle={handleMuscle}
+              difficulty={handleDifficulty}
+              set={set}
             />
           </div>
+          <div className="w-full">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+              {exercises.map((exercise, i) => {
+                return (
+                  <ExerciseList
+                    key={i}
+                    name={exercise.name}
+                    type={exercise.type}
+                    muscle={exercise.muscle}
+                    equipment={exercise.equipment}
+                    difficulty={exercise.difficulty}
+                    instructions={exercise.instructions}
+                  />
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+      <button
+        onClick={() => window.scrollTo(0, 0)}
+        className="fixed hover:cursor-pointer bottom-5 right-5 w-10 h-10 rounded-full border shadow-md bg-slate-200 p-2 flex justify-center items-center font-bold"
+      >
+        &uarr;
+      </button>
+    </>
   );
 };
 
