@@ -9,13 +9,15 @@ const ExerciseList = ({
   instructions,
 }) => {
   return (
-    <div className="p-2 border rounded-md">
-      <h3>{name}</h3>
-      <p>{type}</p>
-      <p>{muscle}</p>
-      <p>{equipment}</p>
-      <p>{difficulty}</p>
-      <p>{instructions}</p>
+    <div class=" p-6 border-orange-200 hover:border-orange-400 border-2 rounded-lg bg-origin-border hover:bg-origin-padding shadow-md">
+      <div class="pt-4 pb-4">
+      <span class="inline-block bg-yellow-100 rounded-md px-3 text-2xl capitalize text-orange-500 font-semibold font-mons mb-2">{name}</span>
+      </div>
+      <p class="text-gray-600 font-medium font-mons mb-1">Type : {type}</p>
+      <p class="text-gray-600 font-medium font-mons mb-1">Muscle : {muscle}</p>
+      <p class="text-gray-600 font-medium font-mons mb-1">Equipment : {equipment}</p>
+      <p class="text-gray-600 font-medium font-mons mb-1">Difficutly : {difficulty}</p>
+      <p class="text-gray-800 font-medium whitespace-normal font-mons"> instructions : {instructions}</p>
     </div>
   );
 };
