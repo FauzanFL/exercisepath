@@ -12,13 +12,13 @@ const Home = () => {
   return (
     <>
       <Header page={'home'} />
-      <main>
+      <main className="dark:bg-slate-700">
         <Hero />
-        <section>
+        <section className="p-3 dark:text-white">
           <h2 className="text-xl md:text-3xl font-bold mb-5 text-center">
             About Us
           </h2>
-          <div className="text-md md:text-xl mx-12">
+          <div className="text-md md:text-xl mx-12 ">
             <p className="text-center mb-4">
               <b>ExercisePath</b> is a website that provides information about a
               collection of fitness exercises that can be done at home, at the
