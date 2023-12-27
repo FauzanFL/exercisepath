@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Button from './Button';
 
 const Sidebar = ({ search, muscle, type, difficulty, set }) => {
   const [name, setName] = useState('');
+  const [showFilter, setShowFilter] = useState(false);
   const handleSearch = (event) => {
     event.preventDefault();
     search(name);
@@ -22,6 +24,10 @@ const Sidebar = ({ search, muscle, type, difficulty, set }) => {
   const handleDifficulty = (event) => {
     const value = event.target.value;
     difficulty(value);
+  };
+
+  const handleFilterToggle = () => {
+    setShowFilter(!showFilter);
   };
 
   return (
@@ -79,111 +85,123 @@ const Sidebar = ({ search, muscle, type, difficulty, set }) => {
           <span className="sr-only">Search</span>
         </button>
       </form>
-      <div className="mt-4">
-        <h4 className="text-md font-bold mb-1">Difficulty</h4>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            onChange={handleDifficulty}
-            value={''}
-            name="difficulty"
-            id=""
-          />
-          <label className="ml-2" htmlFor="difficulty">
-            All
-          </label>
+      <button
+        onClick={handleFilterToggle}
+        className="p-2 mt-4 border-y font-bold border-orange-400 bg-gray-50 hover:bg-gray-200 dark:bg-gray-400 w-full"
+      >
+        Filter Exercise
+      </button>
+      {showFilter && (
+        <div className="border mt-2 p-2 animate__animated animate__slideInLeft animate__faster">
+          <div className="mt-1">
+            <h4 className="text-md font-bold mb-1">Difficulty</h4>
+            <div className="flex items-center">
+              <input
+                type="radio"
+                onChange={handleDifficulty}
+                value={''}
+                name="difficulty"
+                id=""
+              />
+              <label className="ml-2" htmlFor="difficulty">
+                All
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="radio"
+                onChange={handleDifficulty}
+                value={'beginner'}
+                name="difficulty"
+                id=""
+              />
+              <label className="ml-2" htmlFor="difficulty">
+                Beginner
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="radio"
+                onChange={handleDifficulty}
+                value={'intermediate'}
+                name="difficulty"
+                id=""
+              />
+              <label className="ml-2" htmlFor="difficulty">
+                Intermediate
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                type="radio"
+                onChange={handleDifficulty}
+                value={'expert'}
+                name="difficulty"
+                id=""
+              />
+              <label className="ml-2" htmlFor="difficulty">
+                Expert
+              </label>
+            </div>
+          </div>
+          <div className="mt-4">
+            <h4 className="text-md font-bold mb-1">Type</h4>
+            <select
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              name="type"
+              onChange={handleType}
+              id="type"
+              defaultValue={''}
+            >
+              <option value="">All</option>
+              <option value="cardio">Cardio</option>
+              <option value="olympic_weightlifting">
+                Olympic Weightlifting
+              </option>
+              <option value="plyometrics">Plyometrics</option>
+              <option value="strength">Strength</option>
+              <option value="stretching">Stretching</option>
+              <option value="strongman">Strongman</option>
+            </select>
+          </div>
+          <div className="mt-4">
+            <h4 className="text-md font-bold mb-1">Muscle</h4>
+            <select
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              name="muscle"
+              onChange={handleMuscle}
+              id="type"
+              defaultValue={''}
+            >
+              <option value="">All</option>
+              <option value="abdominals">Abdominals</option>
+              <option value="abductors">Abductors</option>
+              <option value="adductors">Adductors</option>
+              <option value="biceps">Biceps</option>
+              <option value="calves">Calves</option>
+              <option value="chest">Chest</option>
+              <option value="forearms">Forearms</option>
+              <option value="glutes">Glutes</option>
+              <option value="hamstrings">Hamstrings</option>
+              <option value="lats">Lats</option>
+              <option value="lower_back">Lower Back</option>
+              <option value="middle_back">Middle Back</option>
+              <option value="neck">Neck</option>
+              <option value="quadriceps">Quadriceps</option>
+              <option value="traps">Traps</option>
+              <option value="triceps">Triceps</option>
+            </select>
+          </div>
+          <div className="flex justify-center items-center">
+            <button
+              onClick={set}
+              className="p-2.5 w-1/2 mt-4 ms-2 text-sm font-medium text-white bg-orange-700 rounded-lg border border-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
+            >
+              Set
+            </button>
+          </div>
         </div>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            onChange={handleDifficulty}
-            value={'beginner'}
-            name="difficulty"
-            id=""
-          />
-          <label className="ml-2" htmlFor="difficulty">
-            Beginner
-          </label>
-        </div>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            onChange={handleDifficulty}
-            value={'intermediate'}
-            name="difficulty"
-            id=""
-          />
-          <label className="ml-2" htmlFor="difficulty">
-            Intermediate
-          </label>
-        </div>
-        <div className="flex items-center">
-          <input
-            type="radio"
-            onChange={handleDifficulty}
-            value={'expert'}
-            name="difficulty"
-            id=""
-          />
-          <label className="ml-2" htmlFor="difficulty">
-            Expert
-          </label>
-        </div>
-      </div>
-      <div className="mt-4">
-        <h4 className="text-md font-bold mb-1">Type</h4>
-        <select
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          name="type"
-          onChange={handleType}
-          id="type"
-          defaultValue={''}
-        >
-          <option value="">All</option>
-          <option value="cardio">Cardio</option>
-          <option value="olympic_weightlifting">Olympic Weightlifting</option>
-          <option value="plyometrics">Plyometrics</option>
-          <option value="strength">Strength</option>
-          <option value="stretching">Stretching</option>
-          <option value="strongman">Strongman</option>
-        </select>
-      </div>
-      <div className="mt-4">
-        <h4 className="text-md font-bold mb-1">Muscle</h4>
-        <select
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          name="muscle"
-          onChange={handleMuscle}
-          id="type"
-          defaultValue={''}
-        >
-          <option value="">All</option>
-          <option value="abdominals">Abdominals</option>
-          <option value="abductors">Abductors</option>
-          <option value="adductors">Adductors</option>
-          <option value="biceps">Biceps</option>
-          <option value="calves">Calves</option>
-          <option value="chest">Chest</option>
-          <option value="forearms">Forearms</option>
-          <option value="glutes">Glutes</option>
-          <option value="hamstrings">Hamstrings</option>
-          <option value="lats">Lats</option>
-          <option value="lower_back">Lower Back</option>
-          <option value="middle_back">Middle Back</option>
-          <option value="neck">Neck</option>
-          <option value="quadriceps">Quadriceps</option>
-          <option value="traps">Traps</option>
-          <option value="triceps">Triceps</option>
-        </select>
-      </div>
-      <div className="flex justify-center items-center">
-        <button
-          onClick={set}
-          className="p-2.5 w-1/2 mt-4 ms-2 text-sm font-medium text-white bg-orange-700 rounded-lg border border-orange-700 hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
-        >
-          Set
-        </button>
-      </div>
+      )}
     </aside>
   );
 };
