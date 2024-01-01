@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Button from './Button';
 
 const Sidebar = ({ search, muscle, type, difficulty, set }) => {
   const [name, setName] = useState('');
