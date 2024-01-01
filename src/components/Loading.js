@@ -1,7 +1,7 @@
 const Loading = () => {
   return (
     <>
-      <div class="lds-facebook">
+      <div className="lds-facebook">
         <div></div>
         <div></div>
         <div></div>
