@@ -114,19 +114,23 @@ const ViewExercisePage = () => {
               </div>
             ) : (
               <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {exercises.map((exercise, i) => {
-                  return (
-                    <ExerciseList
-                      key={i}
-                      name={exercise.name}
-                      type={exercise.type}
-                      muscle={exercise.muscle}
-                      equipment={exercise.equipment}
-                      difficulty={exercise.difficulty}
-                      instructions={exercise.instructions}
-                    />
-                  );
-                })}
+                {exercises
+                  .map((exercise, i) => {
+                    return (
+                      <ExerciseList
+                        key={i}
+                        name={exercise.name}
+                        type={exercise.type}
+                        muscle={exercise.muscle}
+                        equipment={exercise.equipment}
+                        difficulty={exercise.difficulty}
+                        instructions={exercise.instructions}
+                      />
+                    );
+                  })
+                  .sort((a, b) => {
+                    return a.name.localeCompare(b.name);
+                  })}
               </div>
             )}
           </div>
